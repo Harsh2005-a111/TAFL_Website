@@ -23,3 +23,26 @@ This project is completely client-side. No build processes, package managers, or
 1. Clone this repository:
    ```bash
    git clone [https://github.com/yourusername/automata-lab.git](https://github.com/yourusername/automata-lab.git)
+## 🛠️ Usage
+
+Enter a valid Regular Expression in the input panel (e.g., (a|b)*abb).
+
+Click Convert to generate the automata.
+
+Toggle between ε-NFA, DFA, and Table views using the top navigation bar.
+
+Use the Simulate Input section to test strings against your generated machine.
+
+Explore the Theory tab for a deep dive into the underlying automata theory, including formal language properties and algorithmic breakdowns.
+
+## 🧠 Core Algorithms
+* **Shunting-Yard Algorithm:** Converts the standard infix regex into postfix notation for easier parsing.
+
+* **Thompson's Construction:** Maps postfix regex operators into interconnected ε-NFA fragments.
+
+* **Powerset Construction:** Simulates concurrent state execution to resolve non-determinism.
+
+* **State Equivalence:** Groups and merges indistinguishable states to form a minimal DFA.
+
+👨‍💻 Author
+Harsh Raj Srivastava Computer Science with Data Science (CSDS) Developed as a practical exploration of Automata Theory, compiler design, and interactive data visualization.
