@@ -2576,9 +2576,21 @@
         updateStatesTable();
         updateStatus();
         document.getElementById('empty-state').style.display = 'none';
-        document.getElementById('legend').style.display = 'block';
+
+        // NEW: Ensure table builds if user converts while on the table tab
+        if (currentView === 'table') {
+          buildTable();
+        }
+
+        // NEW: Keep legend hidden if we are on table or theory views
+        document.getElementById('legend').style.display = (currentView === 'table' || currentView === 'theory') ? 'none' : 'block';
+
         highlightedStates = new Set();
-        rebuildD3Graph();
+
+        // Only rebuild D3 if we are on a graphical tab
+        if (currentView === 'nfa' || currentView === 'dfa') {
+          rebuildD3Graph();
+        }
         showToast('Automaton built · D3 physics active');
       } catch (e) {
         setError('Parse error: ' + e.message);
@@ -3026,7 +3038,7 @@
         <td style="padding:6px 12px;border:1px solid var(--border);text-align:center">
           ${s.isStart ? '<span style="color:var(--accent);font-size:8px;border:1px solid var(--accent);padding:1px 4px;border-radius:3px;opacity:0.8">START</span>' : ''}
           ${s.isAccept ? '<span style="color:var(--accent2);font-size:8px;border:1px solid var(--accent2);padding:1px 4px;border-radius:3px;opacity:0.8">ACCEPT</span>' : ''}
-          ${!s.isStart && !isAccept ? '<span style="color:var(--text3);font-size:8px">—</span>' : ''}
+          ${!s.isStart && !s.isAccept ? '<span style="color:var(--text3);font-size:8px">—</span>' : ''}
         </td>
         <td style="padding:6px 12px;border:1px solid var(--border);color:var(--text3);font-size:9px">{q${[...s.set].join(',q')}}</td>
         ${currentDFA.alphabet.map(sym => { let tr = currentDFA.trans.find(t => t.from === s.id && t.sym === sym); return `<td style="padding:6px 12px;border:1px solid var(--border);text-align:center;color:var(--text2)">${tr != null ? 'D' + tr.to : '∅'}</td>` }).join('')}
